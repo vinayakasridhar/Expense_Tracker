@@ -1,0 +1,64 @@
+<div id="<%= dom_id(expense) %>">
+  <p>
+    <strong>Date:</strong>
+    <%= expense.date %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= expense.description %>
+  </p>
+
+  <p>
+    <strong>Amount:</strong>
+    <%= expense.amount %>
+  </p>
+
+  <p>
+    <strong>Invoice number:</strong>
+    <%= expense.invoice_number %>
+  </p>
+
+  <p>
+    <strong>Invoice validated:</strong>
+    <%= expense.invoice_validated %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+     <%= expense.user.name %>
+  </p>
+  <p>
+    <strong>Approval Status:</strong>
+     <%= expense.approval_status %>
+  </p>
+  <p>
+  <% if expense.invoice.attached?%>
+  <%= link_to expense.invoice.filename, expense.invoice%>
+  <% end %>
+  </p>
+
+  
+  <% if @user.admin %>
+    <div class="button-container">
+      <%= form_with(url: approve_expense_path(expense), method: :patch) do |form| %>
+        <%= form.submit 'Approve',class: 'approve-button' %>
+      <% end %>
+
+      <%= form_with(url: reject_expense_path(expense), method: :patch) do |form| %>
+        <%= form.submit 'Reject',class: 'reject-button' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @comments.present? %>
+    <h2>Comments:</h2>
+    <% @comments.each do |comment| %>
+      <p><strong><%= comment.user.name %></strong>: <%= comment.content %></p>
+    <% end %>
+  <% else %>
+    <p>No comments yet.</p>
+  <% end %>
+
+</div>
+

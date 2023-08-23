@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+
+<body>
+<nav class="navbar-index">
+<h1>Expense reports</h1>
+      <%= form_tag(search_expense_reports_path, method: :get) do %>
+        <%= text_field_tag :search_term, params[:search_term], placeholder: "Search by user name" %>
+        <%= submit_tag "Search" %>
+      <% end %>
+<div>
+<%= link_to "New expense report", new_expense_report_path %>
+<%= link_to "Back to Home", root_path %>
+</div>
+</nav>
+</body>
+
+<div id="expense_reports">
+  <% @expense_reports.each do |expense_report| %>
+    <% @expenses = expense_report.expenses%>
+    <%= render expense_report %>
+    <p>
+      <%= link_to "Show this expense report", expense_report %>
+    </p>
+  <% end %>
+</div>
+
+

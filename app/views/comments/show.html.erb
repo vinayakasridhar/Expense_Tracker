@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+  <%= render @comment %>
+
+<div>
+<% if @comment.commentable_type == "Expense" %>
+  <%= link_to "Edit this comment", edit_expense_comment_path(@expense, @comment) %> |
+  <%= link_to "Back to comments", expense_comments_path(@expense) %>
+  <%= button_to "Destroy this comment", expense_comment_path(@expense, @comment), method: :delete %>
+<% elsif @comment.commentable_type == "Expense Report" %>
+  <%= link_to "Edit this comment", edit_expense_report_comment_path(@expense, @comment) %> |
+  <%= link_to "Back to comments", expense_report_comments_path(@expense) %>
+  <%= button_to "Destroy this comment", expense_report_comment_path(@expense, @comment), method: :delete %>
+<%end%>
+</div>

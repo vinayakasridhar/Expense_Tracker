@@ -1,0 +1,46 @@
+<%= form_with(model: [expense_report]) do |form| %>
+  <% if expense_report.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(expense_report.errors.count, "error") %> prohibited this expense_report from being saved:</h2>
+
+      <ul>
+        <% expense_report.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+  <br>
+    <%= @user.id %> : <%= @user.name%>
+  </div>
+  <h3>Select Expenses:</h3>
+  <% @user.expenses.where(approval_status: "pending",expense_report_id: [nil, expense_report.id]).each do |expense| %>
+    <%= check_box_tag 'expense_report[selected_expense_ids][]', expense.id, false, class: 'expense-checkbox' %>
+    <%= expense.description %> - <%= expense.amount %>
+    <br>
+  <% end %>
+<%
+  if expense_report.selected_expense_ids.count>0
+    expenses = @user.expenses.where(approval_status: "pending", expense_report_id: [nil ,@expense_report.id]).where(id: expense_report.selected_expense_ids)
+    expenses.update_all(expense_report_id: @expense_report.id)
+  end %>
+  <!--
+  <%# <% expense_report.selected_expense_ids.each do |id|%>
+  <%# <% Expense.where(id: id).expense_report_id = expense_report.id%> %>
+  <%# <% end %> %> %>
+  -->
+
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

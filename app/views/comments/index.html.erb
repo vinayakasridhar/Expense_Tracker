@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Comments</h1>
+
+<div id="comments">
+  <% @comments.each do |comment| %>
+    <%= render comment %>
+    <p>
+      <%= link_to "Show this comment", expense_comment_path(@expense, comment) %>
+    </p>
+  <% end %>
+</div>
+<% if @comment.expense_id.present? %>
+<%= link_to "New comment", new_expense_comment_path(@expense)%>
+<%= link_to "Back to expenses", expenses_path %>
+<% elsif @comment.expense_report_id.present?%>
+<%= link_to "New comment", new_expense_report_comment_path(@expense)%>
+<%= link_to "Back to expense reports", expense_reports_path %>
+<% end %>
+

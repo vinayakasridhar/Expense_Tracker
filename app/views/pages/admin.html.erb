@@ -1,0 +1,33 @@
+<h1>All Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Name</th> <!-- Replace 'name' with the attribute you want to display (e.g., 'username') -->
+      <th>Department</th>
+      <th>Employment Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td> <!-- Replace 'name' with the attribute you want to display (e.g., 'username') -->
+        <td><%= user.department %></td>
+        <td><%= user.employment_status ? "Active" : "Terminated" %></td>
+        <td><%= form_with(url: terminate_page_path(user), method: :patch) do |form| %>
+        <%= form.submit 'Terminate' %>
+      <% end %></td>
+        <td><%= form_with(url: activate_page_path(user), method: :patch) do |form| %>
+        <%= form.submit 'Activate' %>
+      <% end %></td>
+      <td><%= link_to "Expenses", expenses_path(user_id: user.id) %></td>
+      <td><%= link_to "Expense Reports", expense_reports_path(user_id: user.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "Home", root_path%>

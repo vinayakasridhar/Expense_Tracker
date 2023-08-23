@@ -1,0 +1,13 @@
+<h1>New comment</h1>
+
+<%= render "form", comment: @comment %>
+
+<br>
+
+<div>
+<% if @comment.commentable_type == "Expense" %>
+  <%= link_to "Back to comments", expense_comments_path(@expense) %>
+  <% else @comment.commentable_type == "Expense Report" %>
+  <%= link_to "Back to comments", expense_report_comments_path(@expense) %>
+  <%end%>
+</div>

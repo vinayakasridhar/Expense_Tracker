@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  commentable_type: MyString
+  expense: one
+
+two:
+  content: MyText
+  commentable_type: MyString
+  expense: two

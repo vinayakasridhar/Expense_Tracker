@@ -1,0 +1,57 @@
+<!--
+<h1>Expense Tracker</h1>
+
+<% if user_signed_in? %>
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: {turbo_method: :delete} %>
+    <%= link_to "Edit Profile", edit_user_registration_path%>
+    <%= link_to "Expenses", expenses_path%>
+    <%= link_to "Expense Report", expense_reports_path%>
+    <% if @user.admin %>
+        <%= link_to "Users", pages_admin_path%>
+    <% end %>
+
+<% else %>
+    <%= link_to "Sign In", new_user_session_path %>
+    <%= link_to "Sign Up", new_user_registration_path %>
+<% end %>
+-->
+<!--
+<% if admin_signed_in? %>
+    <h3> Admin Links </h3>
+    <%= link_to "Sign Out", destroy_admin_session_path, method: :delete, data: {turbo_method: :delete} %>
+    <%= link_to "Edit Profile", edit_admin_registration_path%>
+    <%= link_to "Expenses", expenses_path%>
+    <%= link_to "Users", pages_admin_path%>
+
+<% elsif !user_signed_in? %>
+    <h3> Admin Links </h3>
+    <%= link_to "Sign In", new_admin_session_path %>
+    <%= link_to "Sign Up", new_admin_registration_path %>
+<% end %>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1 class="logo">Expense Tracker</h1>
+    <ul class="nav-links">
+      <% if user_signed_in? %>
+        <li><a href="<%= destroy_user_session_path %>" data-turbo-method="delete">Sign Out</a></li>
+        <li><a href="<%= edit_user_registration_path %>">Edit Profile</a></li>
+        <li><a href="<%= expenses_path %>">Expenses</a></li>
+        <li><a href="<%= expense_reports_path %>">Expense Report</a></li>
+        <% if @user.admin %>
+          <li><a href="<%= pages_admin_path %>">Users</a></li>
+        <% end %>
+      <% else %>
+        <li><a href="<%= new_user_session_path %>">Sign In</a></li>
+        <li><a href="<%= new_user_registration_path %>">Sign Up</a></li>
+      <% end %>
+    </ul>
+  </nav>
+</body>
+</html>

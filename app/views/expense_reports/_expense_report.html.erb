@@ -1,0 +1,31 @@
+<div id="<%= dom_id expense_report %>">
+  <p>
+    <strong>Title:</strong>
+    <%= expense_report.title %>
+  </p>
+
+  <p>
+    <strong>Total amount:</strong>
+    <%= @user.expenses.where(id: expense_report.selected_expense_ids).sum(:amount) %>
+
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= expense_report.user.name %>
+  </p>
+  <p>
+  <h3>Expenses</h3>
+
+    <% expense_report.selected_expense_ids.each do |expense_id| %>
+    <p>
+      <%= Expense.find(expense_id).description %>:
+      <%= Expense.find(expense_id).amount %>
+      <%= link_to "show this expense", expense_path(expense_id)%>
+    </p>
+    <% end %>
+
+
+  </p>
+
+</div>
